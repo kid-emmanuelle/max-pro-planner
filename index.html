@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGV Max Pro Planner</title>
+    <!-- Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,900&display=swap" rel="stylesheet">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<datalist id="stations-list"></datalist>
+
+<header>
+    <div class="header-container">
+        <div class="logo">Max-Pro-Planner</div>
+        <nav class="nav-links">
+            <a href="#">About</a>
+            <a href="#" style="background: var(--black); color: var(--white);">Menu ≡</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Railway<br>Station<br>Planner</h1>
+    
+    <div class="search-panel vector-box">
+        <div class="radio-group">
+            <label><input type="radio" name="trip-type" value="aller" checked onchange="toggleRetour(false)"> Aller simple</label>
+            <label><input type="radio" name="trip-type" value="retour" onchange="toggleRetour(true)"> Aller-retour</label>
+        </div>
+
+        <form id="search-form">
+            <div class="grid-form">
+                <div class="input-box">
+                    <label>Départ</label>
+                    <input type="text" id="origin" list="stations-list" placeholder="Ex: Lille..." required>
+                </div>
+                <div class="input-box">
+                    <label>Arrivée</label>
+                    <input type="text" id="destination" list="stations-list" placeholder="Ex: Strasbourg..." required>
+                </div>
+                <div class="input-box">
+                    <label>Date (Aller)</label>
+                    <input type="date" id="date-aller">
+                </div>
+                <div class="input-box" id="box-retour" style="display: none;">
+                    <label>Date (Retour)</label>
+                    <input type="date" id="date-retour">
+                </div>
+                <div class="input-box">
+                    <label>Correspondances</label>
+                    <select id="connections">
+                        <option value="0">Trajet Direct</option>
+                        <option value="1">1 correspondance</option>
+                        <option value="2">2 correspondances</option>
+                        <option value="3">3 correspondances</option>
+                    </select>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="submit" id="submit-btn">Learn More ➔</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="warning-msg" class="warning-box"></div>
+    <div id="loading">Recherche en cours...</div>
+
+    <div id="results-container"></div>
+</main>
+
+<footer>
+    <div>© 2026 TGV Max Pro Planner. Projet non officiel de <a href="https://github.com/kid-emmanuelle/max-pro-planner" target="_blank">kid-emmanuelle</a>.</div>
+    <div class="footer-note">
+        Les données affichées sont fournies à titre indicatif via l'API publique <a href="https://ressources.data.sncf.com/" target="_blank">SNCF Open Data</a>. <br>
+        Mise à jour des disponibilités : 1 fois par jour.
+    </div>
+</footer>
+
+<!-- External JavaScript (loaded with 'defer' so it runs after HTML is parsed) -->
+<script src="app.js" defer></script>
+
+</body>
+</html>
