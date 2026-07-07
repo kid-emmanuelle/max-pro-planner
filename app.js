@@ -148,7 +148,7 @@ function renderRoutes(routes, containerId, title) {
         const badgeText = isDirect ? 'Direct' : `${route.length - 1} Corresp.`;
         
         const viaStations = route.slice(0, -1).map(r => r.destination).join(", ");
-        const viaHtml = !isDirect ? `<div class="trip-via">VIA: ${viaStations}</div>` : '';
+        const viaHtml = !isDirect ? `<div class="trip-via">Via : ${viaStations}</div>` : '';
 
         let legsHtml = '';
         for (let i = 0; i < route.length; i++) {
@@ -165,12 +165,12 @@ function renderRoutes(routes, containerId, title) {
                 </div>
             `;
             
-            if (i < route.length - 1) {
-                const waitMins = timeToMins(route[i+1].heure_depart) - timeToMins(train.heure_arrivee);
-                const h = Math.floor(waitMins/60);
-                const m = waitMins % 60;
-                legsHtml += `<div class="transfer-wait">CORRESPONDANCE: ${h}H${m.toString().padStart(2, '0')}</div>`;
-            }
+                if (i < route.length - 1) {
+                    const waitMins = timeToMins(route[i+1].heure_depart) - timeToMins(train.heure_arrivee);
+                    const h = Math.floor(waitMins/60);
+                    const m = waitMins % 60;
+                    legsHtml += `<div class="transfer-wait">CORRESPONDANCE : ${h}H${m.toString().padStart(2, '0')}</div>`;
+                }
         }
 
         html += `

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TGV Max Pro Planner</title>
+    <title>Planificateur TGV Max Pro</title>
     <!-- Font Import -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,900&display=swap" rel="stylesheet">
     <!-- External CSS -->
@@ -17,14 +17,14 @@
     <div class="header-container">
         <div class="logo">Max-Pro-Planner</div>
         <nav class="nav-links">
-            <a href="#">About</a>
+            <a href="#">À propos</a>
             <a href="#" style="background: var(--black); color: var(--white);">Menu ≡</a>
         </nav>
     </div>
 </header>
 
 <main>
-    <h1>Railway<br>Station<br>Planner</h1>
+    <h1>Planificateur<br>de gares<br>ferroviaires</h1>
     
     <div class="search-panel vector-box">
         <div class="radio-group">
@@ -61,9 +61,36 @@
                 </div>
             </div>
             <div class="btn-group">
-                <button type="submit" id="submit-btn">Learn More ➔</button>
+                <button type="submit" id="submit-btn">Rechercher ➔</button>
             </div>
         </form>
+    </div>
+
+    <div class="guide-section vector-box">
+        <h2>⚡ Guide Rapide</h2>
+        <div class="guide-steps">
+            <div class="guide-step">
+                <div class="step-number">1</div>
+                <div>
+                    <h3>Trajet</h3>
+                    <p>Saisissez vos gares. Pensez à utiliser les suggestions (ex: "PARIS").</p>
+                </div>
+            </div>
+            <div class="guide-step">
+                <div class="step-number">2</div>
+                <div>
+                    <h3>Dates (J-30)</h3>
+                    <p>Choisissez vos dates (vide = tous). Les places Max ne sont affichées qu'à <strong>30 jours maximum</strong>.</p>
+                </div>
+            </div>
+            <div class="guide-step">
+                <div class="step-number">3</div>
+                <div>
+                    <h3>Filtres</h3>
+                    <p>Ajustez les correspondances (Direct, 1, 2, ou 3) et lancez votre recherche.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="warning-msg" class="warning-box"></div>
@@ -73,7 +100,7 @@
 </main>
 
 <footer>
-    <div>© 2026 TGV Max Pro Planner. Projet non officiel de <a href="https://github.com/kid-emmanuelle/max-pro-planner" target="_blank">kid-emmanuelle</a>.</div>
+    <div>© 2026 Planificateur TGV Max Pro. Projet non officiel de <a href="https://github.com/kid-emmanuelle/max-pro-planner" target="_blank">kid-emmanuelle</a>.</div>
     <div class="footer-note">
         Les données affichées sont fournies à titre indicatif via l'API publique <a href="https://ressources.data.sncf.com/" target="_blank">SNCF Open Data</a>. <br>
         Mise à jour des disponibilités : 1 fois par jour.
