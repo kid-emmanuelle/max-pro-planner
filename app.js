@@ -1,3 +1,39 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Cấu hình chung cho cả 2 ngày
+    const commonConfig = {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d/m/Y",
+        locale: "fr",
+        allowInput: true,
+        minDate: "today", // Không cho chọn ngày trong quá khứ
+        maxDate: new Date().fp_incr(30) // Giới hạn tối đa 30 ngày (J-30)
+    };
+
+    // Khởi tạo ngày về (lưu vào biến để dễ cập nhật)
+    const fpRetour = flatpickr("#date-retour", commonConfig);
+
+    // Khởi tạo ngày đi
+    const fpAller = flatpickr("#date-aller", {
+        ...commonConfig,
+        onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length > 0) {
+                // Khi người dùng chọn ngày đi, cập nhật minDate của ngày về thành ngày đó
+                fpRetour.set('minDate', selectedDates[0]);
+                
+                // Nếu ngày về đã được chọn trước đó mà lại nhỏ hơn ngày đi mới chọn -> Xóa trắng ngày về
+                const currentRetourDate = fpRetour.selectedDates[0];
+                if (currentRetourDate && currentRetourDate < selectedDates[0]) {
+                    fpRetour.clear();
+                }
+            } else {
+                // Nếu xóa ngày đi, reset minDate của ngày về lại là hôm nay
+                fpRetour.set('minDate', "today");
+            }
+        }
+    });
+});
+
 // 1. Initialisation de la liste des gares
 async function fetchStations() {
     const dataList = document.getElementById('stations-list');
@@ -109,7 +145,7 @@ function findRoutes(records, origin, dest, maxConnections) {
                     const depTime = timeToMins(nextTrain.heure_depart);
                     const waitTime = depTime - arrTime;
                     
-                    if (waitTime < 40 || waitTime > 720) continue;
+                    if (waitTime < 30 || waitTime > 720) continue;
                 }
 
                 currentPath.push(nextTrain);
