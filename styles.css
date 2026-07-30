@@ -192,15 +192,6 @@ input[type="radio"]:checked {
   background: var(--accent-light);
 }
 
-.advanced-settings {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 25px;
-  margin-top: 15px;
-  padding-top: 20px;
-  border-top: 2px dashed var(--black);
-}
-
 .btn-group {
   display: flex;
   gap: 10px;
