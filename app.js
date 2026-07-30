@@ -24,17 +24,21 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Logic bật tắt phần Cài đặt nâng cao (Advanced Settings)
 document
   .getElementById("advanced-toggle")
   .addEventListener("click", function () {
-    const adv = document.getElementById("advanced-settings");
-    if (adv.style.display === "none") {
-      adv.style.display = "grid";
+    const advBoxes = document.querySelectorAll(".advanced-box");
+
+    const isHidden = advBoxes[0].style.display === "none";
+
+    advBoxes.forEach((box) => {
+      box.style.display = isHidden ? "flex" : "none";
+    });
+
+    if (isHidden) {
       this.innerHTML = "⚙️ Masquer les paramètres avancés";
     } else {
-      adv.style.display = "none";
-      this.innerHTML = "⚙️ Paramètres avancés (Temps d'attente)";
+      this.innerHTML = "⚙️ Afficher les paramètres avancés";
     }
   });
 
