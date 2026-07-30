@@ -1,4 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const searchForm = document.getElementById("search-form");
+  searchForm.reset();
+
+  window.toggleRetour(false);
+
+  document.getElementById("results-container").innerHTML = "";
+  
+  const advBoxes = document.querySelectorAll('.advanced-box');
+  advBoxes.forEach(box => box.style.display = 'none');
+  const advToggle = document.getElementById('advanced-toggle');
+  if (advToggle) {
+      advToggle.innerHTML = "⚙️ Afficher les paramètres avancés";
+  }
+
+  const tripTypeRadios = document.querySelectorAll('input[name="trip-type"]');
+  tripTypeRadios.forEach(radio => {
+    if (radio.value === "aller") {
+      radio.checked = true;
+    }
+  });
+
   const commonConfig = {
     dateFormat: "Y-m-d",
     altInput: true,
