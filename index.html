@@ -1,117 +1,191 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Planificateur TGV Max Pro</title>
     <!-- Font Import -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Flatpickr CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
     <!-- External CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <datalist id="stations-list"></datalist>
 
-<datalist id="stations-list"></datalist>
-
-<header>
-    <div class="header-container">
+    <header>
+      <div class="header-container">
         <div class="logo">Max-Pro-Planner</div>
         <nav class="nav-links">
-            <a href="#">À propos</a>
-            <a href="#" style="background: var(--black); color: var(--white);">Menu ≡</a>
+          <a href="#">À propos</a>
+          <a href="#" style="background: var(--black); color: var(--white)"
+            >Menu ≡</a
+          >
         </nav>
-    </div>
-</header>
+      </div>
+    </header>
 
-<main>
-    <h1>Planificateur<br>de gares<br>TGV - SNCF</h1>
-    
-    <div class="search-panel vector-box">
+    <main>
+      <h1>Planificateur<br />de gares<br />TGV - SNCF</h1>
+
+      <div class="search-panel vector-box">
         <div class="radio-group">
-            <label><input type="radio" name="trip-type" value="aller" checked onchange="toggleRetour(false)"> Aller simple</label>
-            <label><input type="radio" name="trip-type" value="retour" onchange="toggleRetour(true)"> Aller-retour</label>
+          <label
+            ><input
+              type="radio"
+              name="trip-type"
+              value="aller"
+              checked
+              onchange="toggleRetour(false)"
+            />
+            Aller simple</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="trip-type"
+              value="retour"
+              onchange="toggleRetour(true)"
+            />
+            Aller-retour</label
+          >
         </div>
 
         <form id="search-form">
-            <div class="grid-form">
-                <div class="input-box">
-                    <label>Départ</label>
-                    <input type="text" id="origin" list="stations-list" placeholder="Ex: Lille..." required>
-                </div>
-                <div class="input-box">
-                    <label>Arrivée</label>
-                    <input type="text" id="destination" list="stations-list" placeholder="Ex: Strasbourg..." required>
-                </div>
-                <div class="input-box">
-                    <label>Date (Aller)</label>
-                    <input type="text" id="date-aller" placeholder="dd/mm/yyyy">
-                </div>
-                <div class="input-box" id="box-retour" style="display: none;">
-                    <label>Date (Retour)</label>
-                    <input type="text" id="date-retour" placeholder="dd/mm/yyyy">
-                </div>
-                <div class="input-box">
-                    <label>Correspondances</label>
-                    <select id="connections">
-                        <option value="0">Trajet Direct</option>
-                        <option value="1">1 correspondance</option>
-                        <option value="2">2 correspondances</option>
-                        <option value="3">3 correspondances</option>
-                    </select>
-                </div>
+          <div class="grid-form">
+            <div class="input-box">
+              <label>Départ</label>
+              <input
+                type="text"
+                id="origin"
+                list="stations-list"
+                placeholder="Ex: Lille..."
+                required
+              />
             </div>
-            <div class="btn-group">
-                <button type="submit" id="submit-btn">Rechercher ➔</button>
+            <div class="input-box">
+              <label>Arrivée</label>
+              <input
+                type="text"
+                id="destination"
+                list="stations-list"
+                placeholder="Ex: Strasbourg..."
+                required
+              />
             </div>
-        </form>
-    </div>
+            <div class="input-box">
+              <label>Date (Aller)</label>
+              <input type="text" id="date-aller" placeholder="dd/mm/yyyy" />
+            </div>
+            <div class="input-box" id="box-retour" style="display: none">
+              <label>Date (Retour)</label>
+              <input type="text" id="date-retour" placeholder="dd/mm/yyyy" />
+            </div>
+            <div class="input-box">
+              <label>Correspondances</label>
+              <select id="connections">
+                <option value="0">Trajet Direct</option>
+                <option value="1">1 correspondance</option>
+                <option value="2">2 correspondances</option>
+                <option value="3">3 correspondances</option>
+              </select>
+            </div>
+          </div>
 
-    <div class="guide-section vector-box">
+          <div class="advanced-toggle" id="advanced-toggle">
+            ⚙️ Paramètres avancés (Temps d'attente)
+          </div>
+          <div
+            class="advanced-settings"
+            id="advanced-settings"
+            style="display: none"
+          >
+            <div class="input-box">
+              <label>Attente Min (min)</label>
+              <input type="number" id="min-wait" value="60" min="0" />
+            </div>
+            <div class="input-box">
+              <label>Attente Max (min)</label>
+              <input type="number" id="max-wait" value="240" min="0" />
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" id="submit-btn">Rechercher ➔</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="guide-section vector-box">
         <h2>⚡ Guide Rapide</h2>
         <div class="guide-steps">
-            <div class="guide-step">
-                <div class="step-number">1</div>
-                <div>
-                    <h3>Trajet</h3>
-                    <p>Saisissez vos gares. Pensez à utiliser les suggestions (ex: "PARIS").</p>
-                </div>
+          <div class="guide-step">
+            <div class="step-number">1</div>
+            <div>
+              <h3>Trajet</h3>
+              <p>
+                Saisissez vos gares. Pensez à utiliser les suggestions (ex:
+                "PARIS").
+              </p>
             </div>
-            <div class="guide-step">
-                <div class="step-number">2</div>
-                <div>
-                    <h3>Dates (J-30)</h3>
-                    <p>Choisissez vos dates (vide = tous). Les places Max ne sont affichées qu'à <strong>30 jours maximum</strong>.</p>
-                </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-number">2</div>
+            <div>
+              <h3>Dates (J-30)</h3>
+              <p>
+                Choisissez vos dates. Les places Max ne sont affichées qu'à
+                <strong>30 jours maximum</strong>.
+              </p>
             </div>
-            <div class="guide-step">
-                <div class="step-number">3</div>
-                <div>
-                    <h3>Filtres</h3>
-                    <p>Ajustez les correspondances (Direct, 1, 2, ou 3) et lancez votre recherche.</p>
-                </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-number">3</div>
+            <div>
+              <h3>Filtres & Attente</h3>
+              <p>
+                Ajustez les correspondances et le temps d'attente (dans les
+                paramètres avancés).
+              </p>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div id="warning-msg" class="warning-box"></div>
-    <div id="loading">Recherche en cours...</div>
+      <div id="warning-msg" class="warning-box"></div>
+      <div id="loading">Recherche en cours...</div>
 
-    <div id="results-container"></div>
-</main>
+      <div id="results-container"></div>
+    </main>
 
-<footer>
-    <div>© 2026 Planificateur TGV Max Pro. Projet non officiel de <a href="https://github.com/kid-emmanuelle/max-pro-planner" target="_blank">kid-emmanuelle</a>.</div>
-    <div class="footer-note">
-        Les données affichées sont fournies à titre indicatif via l'API publique <a href="https://ressources.data.sncf.com/" target="_blank">SNCF Open Data</a>. <br>
+    <footer>
+      <div>
+        © 2026 Planificateur TGV Max Pro. Projet non officiel de
+        <a
+          href="https://github.com/kid-emmanuelle/max-pro-planner"
+          target="_blank"
+          >kid-emmanuelle</a
+        >.
+      </div>
+      <div class="footer-note">
+        Les données affichées sont fournies à titre indicatif via l'API publique
+        <a href="https://ressources.data.sncf.com/" target="_blank"
+          >SNCF Open Data</a
+        >. <br />
         Mise à jour des disponibilités : 1 fois par jour.
-    </div>
-</footer>
+      </div>
+    </footer>
 
-<!-- External JavaScript (loaded with 'defer' so it runs after HTML is parsed) -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
-<script src="app.js" defer></script>
-
-</body>
+    <!-- External JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    <script src="app.js" defer></script>
+  </body>
 </html>
